@@ -1,13 +1,20 @@
 const defaultUrl = 'https://snu-coin.herokuapp.com';
-const defaultHeaders = {
-    'Content-Type': 'application/json'
+const LOGIN_KEY = 'LOGIN_KEY';
+
+const getDefaultHeaders = () => {
+    const defaultHeaders = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    if (localStorage.getItem(LOGIN_KEY))
+        defaultHeaders['Authorization'] = `Key ${localStorage.getItem(LOGIN_KEY)}`;
+    return defaultHeaders;
 }
 
 const post = async (url, body={}, extraHeaders={}) => {
     const res = await fetch(`${defaultUrl}/${url}`, {
         method: 'POST',
-        body: JSON.stringify(body),
-        headers: {...defaultHeaders, ...extraHeaders}
+        body: new URLSearchParams(body).toString(),
+        headers: {...getDefaultHeaders(), ...extraHeaders}
     });
 
     return await res.json();
@@ -16,14 +23,18 @@ const post = async (url, body={}, extraHeaders={}) => {
 const get = async (url, query={}, extraHeaders={}) => {
     const res = await fetch(`${defaultUrl}/${url}`, {
         method: 'GET',
-        headers: {...defaultHeaders, ...extraHeaders}
+        headers: {...getDefaultHeaders(), ...extraHeaders}
     });
 
     return await res.json();
 }
 
-const login = async (id, password) => {
-    return await post('login', {id, password});
+const login = async (name, password) => {
+    return await post('login', {name, password});
+}
+
+const loadAssets = async () => {
+    return await get('assets');
 }
 
 const loadMarkets = async() => {
@@ -38,4 +49,5 @@ export {
     login,
     loadMarket,
     loadMarkets,
+    loadAssets,
 }
