@@ -18,21 +18,28 @@
 
 ## api 명세
  ### [POST] /login
- id, password => key
+ name, password => {key}
+ 
+ ### [POST] /login_by_key
+ {key} => {name}
  
  ### [GET] /markets
  None => {markets}
  
  ### [GET] /markets/:market_name
- None => {market, orderBooks}
+ None => {market, orderBook: {buy: [], sell: []}}
  
- ### [POST] /orders
+ ### [POST] /orders (:login_required)
  { price, quantity, marketName, side} => order
 
  ### [GET] /orders
  None => [orders]
+ 
+ ### [GET] /assets (:login_required)
+ None => [orders]
+ 
 
- ### [delete] /orders/:order_id
+ ### [DELETE] /orders/:order_id (:login_required)
  None => order
  
 ## style guide
