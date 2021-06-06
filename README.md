@@ -30,7 +30,7 @@
  None => {market, orderBook: {buy: [], sell: []}}
  
  ### [POST] /orders (:login_required)
- { price, quantity, marketName, side} => order
+ { price, quantity, market, side} => order
 
  ### [GET] /orders
  None => [orders]
