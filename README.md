@@ -42,6 +42,11 @@
  ### [DELETE] /orders/:order_id (:login_required)
  None => order
  
+ ### Order
+ status => -1, 0 ,1 
+기본 => 0  -1 => 취소, 1이 체결완료
+ 
+ 
 ## style guide
 * 수업 시간에 제공한 기본 규격을 준수한다.
 * 변수명은 camelCase 를 기본으로 한다.
